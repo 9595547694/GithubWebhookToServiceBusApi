@@ -25,7 +25,7 @@ namespace GithubWebhookToServiceBusApi.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                  throw;
+             throw;
             }
         }
     }
