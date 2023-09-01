@@ -10,12 +10,12 @@ namespace GithubWebhookToServiceBusApi.Adapter.KeyVault
 {
     public class ServiceBusSecrets
     {
-        string KeyVaultUri = "";
+        string KeyVaultUri = "https://javaazurekeyvault.vault.azure.net/";
         public string GetServicebusConnectionString()
         {
 
             var KeyVaultSecret= new SecretClient(new Uri(KeyVaultUri),new DefaultAzureCredential());
-            var ConnectionString = KeyVaultSecret.GetSecret("");
+            var ConnectionString = KeyVaultSecret.GetSecret("servicebusconnectionstring");
             return ConnectionString.Value.Value;
 
         }
@@ -23,7 +23,7 @@ namespace GithubWebhookToServiceBusApi.Adapter.KeyVault
         public string GetTopicName()
         {
             var KeyVaultSecret = new SecretClient(new Uri(KeyVaultUri), new DefaultAzureCredential());
-            var TopicName = KeyVaultSecret.GetSecret("");
+            var TopicName = KeyVaultSecret.GetSecret("topicname");
             return TopicName.Value.Value;
         }
     }

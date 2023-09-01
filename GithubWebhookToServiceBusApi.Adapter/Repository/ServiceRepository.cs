@@ -25,8 +25,10 @@ namespace GithubWebhookToServiceBusApi.Adapter.Repository
             //ServiceBusSecrets _secrets = new ServiceBusSecrets();
             try
             {
-                ServiceBusClient serviceBusClient = new ServiceBusClient(_secrets.GetServicebusConnectionString());
-                ServiceBusSender serviceBusSender = serviceBusClient.CreateSender(_secrets.GetTopicName());
+                var connectionstring = _secrets.GetServicebusConnectionString();
+                var topicName = _secrets.GetTopicName();
+                ServiceBusClient serviceBusClient = new ServiceBusClient(connectionstring);
+                ServiceBusSender serviceBusSender = serviceBusClient.CreateSender(topicName);
                 ServiceBusMessageBatch serviceBusMessageBatch = await serviceBusSender.CreateMessageBatchAsync();
                 ServiceBusMessage serviceBusMessage = new ServiceBusMessage(JsonConvert.SerializeObject(topic, Formatting.None,
                     new JsonSerializerSettings()
